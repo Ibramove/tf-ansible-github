@@ -13,7 +13,8 @@ provider "kubernetes" {
 
 variable "project" { default = "demo-tf" }
 variable "app"     { default = "nginx-unpriv" }
-variable "image"   { default = "nginxinc/nginx-unprivileged:stable" }
+#variable "image"   { default = "nginxinc/nginx-unprivileged:stable" }
+variable "image"   { default = "registry.access.redhat.com/ubi8/httpd-24" }
 
 # Namespace
 resource "kubernetes_namespace_v1" "ns" {
@@ -30,7 +31,7 @@ resource "kubernetes_deployment_v1" "deploy" {
     labels    = { app = var.app }
   }
   spec {
-    replicas = 1
+    replicas = 2
     selector {
       match_labels = { app = var.app }
     }
